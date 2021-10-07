@@ -5,6 +5,9 @@
 
 clearvars; close all
 
+% add function directory to search path
+script_path = [fileparts(mfilename('fullpath')),filesep]; addpath([script_path,'functions'])
+
 %% manually select localization .mat file and ROIset.zip folder
 [matfile,matpath] = uigetfile('*.mat','Select .mat file with localization data...');
 load([matpath,matfile]);

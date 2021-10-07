@@ -4,7 +4,7 @@
 clearvars
 
 %=========
-rootname = '210907 03_TeNT_slip5'; % use to use concise file namaing format; optionally - comment out if original file name is to be used
+rootname = '210907 01_TeNT_slip5'; % use to use concise file namaing format; optionally - comment out if original file name is to be used
 %=========
 
 [file,path] = uigetfile();
