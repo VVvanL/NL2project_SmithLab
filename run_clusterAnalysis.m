@@ -17,10 +17,10 @@ nanoSD = [2.0 2.0]; % scaling factor; mean + (x)*SD for nanocluster cutoff
 nano_alpha = [12 12]; % alpha value for delineation of nano-regions
 hdr_min = [500 500]; % area minimum for rhd-regions
 method_notes = 'syn_cutoffR'; % method for delineation of syn region
-runId = 'Fig_generation';
+% runId = 'Fig_generation';
 %----------parameters for optimization-------
 % if using, disable roi loop and/or channel loop
-roi = 18; % roi to evaluate
+% roi = 18; % roi to evaluate
 % c = 1; % channel to evaluate
 %===============================================
 % add function directory to search path
