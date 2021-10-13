@@ -20,7 +20,7 @@ method_notes = 'syn_cutoffR'; % method for delineation of syn region
 % runId = 'Fig_generation';
 %----------parameters for optimization-------
 % if using, disable roi loop and/or channel loop
-% roi = 18; % roi to evaluate
+roi = 6; % roi to evaluate
 % c = 1; % channel to evaluate
 %===============================================
 % add function directory to search path
@@ -61,7 +61,8 @@ for roi = roi % 1:roi_n
         s2 = ['ch',num2str(c)]; % channel string for data structures,titles (for code readability)
         titlestr{c} = [titleroot,s2];              
         
-        [XY{c},~,~,~,~] = get_roi_data(roiData,c,roinames{roi});
+        % [XY{c},~,~,~,~] = get_roi_data(roiData,c,roinames{roi});
+        XY{c} = roiData.(s2).(roinames{roi}).localizations(:,2:3);
         if length(XY{c}) < min_roi_locs(c)            
             synRegions{c}(roi,:) = NaN;
             nanoRegions{c}(roi,:) = NaN;

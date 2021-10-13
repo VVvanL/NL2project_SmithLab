@@ -14,28 +14,29 @@ load([matpath,matfile]);
 [roifile,roipath] = uigetfile('*.*','Select ROI file for import...');
 sROI = ReadImageJROI([roipath,roifile]); roi_n = size(sROI,2);
 
-s = data;
 % retrive pixel size for SR image (used to generate ROIs for downstream analysis)
-pxl_xy = p.image_gen.pixelsize_g;
-% pxl_xy = 100; 
-ch_n = p.acq.nchannels; 
+pxl_xy = p.image_gen.pixelsize_g; % Pixel size from SR rendered image (used for ROI selection)
+ch_n = p.acq.nchannels;
+
+% s = data;
 %% loop through channels/ROI list to generate roi-specific localization sets, data saved in cell array ROIdata
 roiData = struct;
 for c = 1:ch_n
-    s2 = ['ch',num2str(c)]; % channel fieldname, assigned here to improve downstream readability    
+    s2 = ['ch',num2str(c)]; % channel fieldname, assigned here to improve downstream readability
+    localizations = data.(s2).localizations;
     for r = 1:roi_n
-        s3 = ['roi',num2str(r)];
-        roiData.(s2).(s3).colheaders = s.(s2).colheaders;        
+        s3 = ['roi',num2str(r)];                
         xmin = sROI{r}.vnRectBounds(2)*pxl_xy; xmax = sROI{r}.vnRectBounds(4)*pxl_xy; % for code readability
         ymin = sROI{r}.vnRectBounds(1)*pxl_xy; ymax = sROI{r}.vnRectBounds(3)*pxl_xy;
         ROIedges = [xmin xmax ymin ymax];  % ROIwh for plotting purposes
-        xyLgc = (s.(s2).localizations(:,3) > ROIedges(1) & s.(s2).localizations(:,3) < ROIedges(2) ...
-            & s.(s2).localizations(:,4) > ROIedges(3) & s.(s2).localizations(:,4) < ROIedges(4));
-        roiData.(s2).(s3).localizations = s.(s2).localizations(xyLgc,:);
+        xyLgc = (localizations(:,2) > ROIedges(1) & localizations(:,2) < ROIedges(2) ...
+                        & localizations(:,3) > ROIedges(3) & localizations(:,3) < ROIedges(4));
+                    
+        roiData.(s2).(s3).localizations = localizations(xyLgc,:);        
         roiData.(s2).(s3).vnRectBounds = sROI{r}.vnRectBounds;
         roiData.(s2).(s3).roiEdges_nm = ROIedges;        
 
-    end; clear r xmin ymin xmax ymax xyLgc ROIedges
+    end;  clear r xmin ymin xmax ymax xyLgc ROIedges
 end
 save([matpath,matfile],'roiData','-append')
 % write ROI localization table in ThunderSTORM format
