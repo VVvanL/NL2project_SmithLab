@@ -2,6 +2,8 @@
 % TODO: remove nano-region only cbc calculation
 
 clearvars; close all
+% add function directory to search path
+script_path = [fileparts(mfilename('fullpath')),filesep]; addpath([script_path,'functions'])
 %% set up parameters for CBC
 Rmax = 30; % max radius in nm 
 r_step = 2; % radius step size (nm)

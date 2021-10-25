@@ -20,7 +20,7 @@ method_notes = 'syn_cutoffR'; % method for delineation of syn region
 % runId = 'Fig_generation';
 %----------parameters for optimization-------
 % if using, disable roi loop and/or channel loop
-roi = 6; % roi to evaluate
+% roi = 6; % roi to evaluate
 % c = 1; % channel to evaluate
 %===============================================
 % add function directory to search path
@@ -36,7 +36,7 @@ aes = define_plot_aesthetics;
 
 %% get ROI data information, create directory for storing analysis output
 roinames = fieldnames(roiData.ch1); roi_n = length(roinames);
-roiPdir = [path,dirname,'_ROIdata',filesep];
+roiPdir = [path,dirname(1:11),'ROIdata',filesep];
 if ~exist(roiPdir,'dir'); mkdir(roiPdir); end
 
 % occupancy = zeros(roi_n,2);
@@ -44,7 +44,7 @@ synRegions = cell(1,2); nanoRegions = cell(1,2); % cell arrays for compiling dat
 for c = 1:2; synRegions{c} = zeros(roi_n,5); nanoRegions{c} = zeros(roi_n,5); end
 
 %% Loop through ROIs 
-for roi = roi % 1:roi_n
+for roi = 1:roi_n
     %% get name and position/size of ROI; set up structure,cell arrays for storage of input/output data
     titleroot = [dirname,'_',roinames{roi}];
     roiEdges = roiData.ch1.(roinames{roi}).roiEdges_nm;
@@ -125,8 +125,8 @@ for roi = roi % 1:roi_n
         h1 = plot_nanocluster(XY{c},XYn0{c},XYn1{c},ld0,ld1,roiEdges,aes);
         grid(h1.Children(5),'on'); title(h1.Children(5),[titlestr{c},' nano'],'Interpreter','none')
         annotation('textbox',[0.25 0.1 0.1 0.1],'String',boxstr,'Interpreter','none','EdgeColor','none');        
-%         savefig(h1,[roidir,titlestr{c},'_nanoclus.fig']); saveas(h1,[roidir,titlestr{c},'_nanoclus.png'])
-%         close(h1)
+        savefig(h1,[roidir,titlestr{c},'_nanoclus.fig']); saveas(h1,[roidir,titlestr{c},'_nanoclus.png'])
+        close(h1)
         
                 % Save results in roiData structure (TODO: remove redundancies)
         nanocluster.(s2).nano = nano{c}; nanocluster.(s2).n1.xy = XYn1{c}; nanocluster.(s2).n0.xy = XYn0{c};        
@@ -165,8 +165,8 @@ for roi = roi % 1:roi_n
 
                 % plot_nanoRegions(XY,LD,shp,cmap,clr,syn,clr2,sz,roiEdges,titlestr)
                 h2 = plot_nanoRegions(xy_nR,ld_nR,shp,aes.cmap1,aes.clr_syn{4},syn_region.shp,aes.clr_syn{3},aes.sz,roiEdges,titlestr{c});
-%                 savefig(h2,[roidir,titlestr{c},'_nanoRegions.fig']); saveas(h2,[roidir,titlestr{c},'_nanoRegions.png'])        
-%                 close(h2)
+                savefig(h2,[roidir,titlestr{c},'_nanoRegions.fig']); saveas(h2,[roidir,titlestr{c},'_nanoRegions.png'])        
+                close(h2)
             else; nanoRegions{c}(roi,:) = NaN;
             end
         else; nanoRegions{c}(roi,:) = NaN;            
@@ -182,8 +182,8 @@ for roi = roi % 1:roi_n
    
     %% plot synaptic boundaries, overlayed   
     h9 = plot_regionBoundaries(XY,roiEdges,synRegion,aes.clr_syn,aes.sz,titleroot);
-%     savefig(h9,[roidir,titleroot,'_regions.fig']); saveas(h9,[roidir,titleroot,'_regions.png'])
-%     close(h9)
+    savefig(h9,[roidir,titleroot,'_regions.fig']); saveas(h9,[roidir,titleroot,'_regions.png'])
+    close(h9)
     
 end % roi loop
 % write global cluster parameters to roiData structure

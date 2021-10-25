@@ -2,6 +2,8 @@
 % customized for Gaba/Gephryn datasets
 % TODO: ammend to gather key statistics?
 clearvars; close all
+% add function directory to search path
+script_path = [fileparts(mfilename('fullpath')),filesep]; addpath([script_path,'functions'])
 
 c_psd = 2; c_rcpt = 1; % channels for psd/receptors respectively
 overlap_thrsh = 0.23; % Threshold for labeling hdrs as "overlaping"
