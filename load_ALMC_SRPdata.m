@@ -4,7 +4,7 @@
 clearvars
 
 %=========
-rootname = '210902 003_gaba647_NL2(511)561_BIC'; % use to use concise file namaing format; optionally - comment out if original file name is to be used
+rootname = 'VGAT488_Geph(3B11)561_Gaba647_002_soma'; % use to use concise file namaing format; optionally - comment out if original file name is to be used
 %=========
 
 [file,path] = uigetfile();

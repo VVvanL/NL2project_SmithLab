@@ -6,7 +6,7 @@
 
 clearvars; close all
 %% ===========clustering parameters==============
-min_roi_locs = [7 100]; % minimum localizations [ch1 ch2] required for continued analysis 
+min_roi_locs = [100 100]; % minimum localizations [ch1 ch2] required for continued analysis 
 k = [0 0]; % k= [ch1 ch2] - placeholder for data determined k points value
 cutoff = [0.10 0.10]; % cutoff = [ch1 ch2]; cutoff for synaptic region determination (option for range or quantile)
 alphaSyn = [100 100]; % set alpha value for determining synaptic-level alphaShape
