@@ -33,7 +33,7 @@ for d = 1:dir_n
     writetable(psd_perROI_T,[folderN,dirname,'_psdTable_perROI.csv'])
     
     psd_temp = rmfield(psd_data,{'perROI'});
-    psd_T = struct2table(hdr_temp);
+    psd_T = struct2table(psd_temp);
     writetable(psd_T,[folderN,dirname,'_psdTable_perObj.csv'])
     
 end
